@@ -8,7 +8,7 @@ import './assets/css/login.css'
 import axios from 'axios'
 Vue.prototype.$axios=axios
 // 设置请求根路径
-axios.defaults.baseURL='http://baidu222.com'
+axios.defaults.baseURL='http://127.0.0.1'
 Vue.config.productionTip = false
 
 new Vue({
