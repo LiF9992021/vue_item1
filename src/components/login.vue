@@ -100,7 +100,7 @@ export default {
           if (this.list.length === 0) {
             $(".boolbox").fadeIn(1000);
           } else {
-            this.$router.push("user");
+            this.$router.push("product");
           }
         });
       });
