@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 // 引入登录注册页面
 import login from '../components/login.vue'
 import user from '../components/user.vue'
+import product from '../components/product.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,10 @@ const routes = [
   {
     path:'/user',
     component:user
+  },
+  {
+    path:'/product',
+    component:product
   }
 
 ]
