@@ -108,13 +108,14 @@ export default {
             this.$router.push("login");
           } else if (res.data.data === 0) {
             // alert("用户名已存在");
-            this.isShow = false;
+            $(".boolbox").fadeIn(1000);
+           
           }
         });
       });
     },
     isShowbtn() {
-      this.isShow = "false";
+      $(".boolbox").fadeOut(1000);
     },
   },
 };

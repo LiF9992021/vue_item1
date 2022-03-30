@@ -6,6 +6,7 @@ import './plugins/element.js'
 import './assets/css/login.css'
 // 导入axios
 import axios from 'axios'
+
 Vue.prototype.$axios=axios
 // 设置请求根路径
 axios.defaults.baseURL='http://127.0.0.1'

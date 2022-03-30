@@ -44,6 +44,8 @@
 </template>
 
 <script>
+// 引入jquery
+import $ from "jquery";
 export default {
   data() {
     return {
@@ -96,7 +98,7 @@ export default {
           this.list = res.data.data;
           console.log(this.list);
           if (this.list.length === 0) {
-            this.isShow = false;
+            $(".boolbox").fadeIn(1000);
           } else {
             this.$router.push("user");
           }
@@ -104,7 +106,7 @@ export default {
       });
     },
     isShowbtn() {
-      this.isShow = "false";
+      $(".boolbox").fadeOut(1000);
     },
   },
 };
