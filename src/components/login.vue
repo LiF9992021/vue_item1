@@ -74,7 +74,6 @@ export default {
         ],
       },
       isShow: true,
-      list: [],
     };
   },
 
@@ -94,9 +93,9 @@ export default {
             password: this.loginform.password,
           },
         }).then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.list = res.data.data;
-          console.log(this.list);
+          // console.log(this.list);
           if (this.list.length === 0) {
             $(".boolbox").fadeIn(1000);
           } else {

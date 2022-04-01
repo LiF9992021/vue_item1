@@ -20,19 +20,19 @@
         <el-form-item prop="password">
           <el-input
             prefix-icon="el-icon-lock"
-            placeholder="设置6-16位登录密码"
+            placeholder="设置5-16位登录密码"
             class="lock_input"
             v-model="loginform.password"
           ></el-input>
         </el-form-item>
         <el-form-item prop="phoneword">
           <el-input
-            prefix-icon="el-icon-mobile"
-            placeholder="短信验证码"
-            class="mobile_input"
+            prefix-icon="el-icon-lock"
+            placeholder="请再次输入密码"
+            class="lock_input"
             v-model="loginform.phoneword"
+            @blur="textbtn"
           ></el-input>
-          <el-button type="danger" class="iphone_btn">获取验证码</el-button>
         </el-form-item>
         <el-form-item>
           <el-button type="danger" class="login_btn" @click="user_btn"
@@ -44,11 +44,17 @@
         <span><a href="#" @click="isShowbtn">+</a></span>
         <p>用户名已存在</p>
       </div>
+      <div class="boolbox1" :class="{ showbox: isShow }">
+        <span><a href="#" @click="isShowbtn">+</a></span>
+        <p>两次密码输入不一致</p>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+// 引入jquery
+import $ from "jquery";
 export default {
   data() {
     return {
@@ -77,7 +83,7 @@ export default {
           },
         ],
         phoneword: [
-          { required: true, message: "请输入验证码", trigger: "blur" },
+          { required: true, message: "请再次输入密码", trigger: "blur" },
           {
             min: 5,
             max: 16,
@@ -92,31 +98,36 @@ export default {
 
   methods: {
     user_btn() {
-      // this.$router.push("login");
-      this.$refs.login_table.validate((bool) => {
-        if (!bool) return console.log("登录失败");
-        this.$axios({
-          url: "/api/post/insert",
-          method: "POST",
-          data: {
-            username: this.loginform.username,
-            password: this.loginform.password,
-          },
-        }).then((res) => {
-          console.log(res.data);
-          if (res.data.data === 1) {
-            this.$router.push("login");
-          } else if (res.data.data === 0) {
-            // alert("用户名已存在");
-            $(".boolbox").fadeIn(1000);
-           
-          }
+      if (this.loginform.password === this.loginform.phoneword) {
+        // this.$router.push("login");
+        this.$refs.login_table.validate((bool) => {
+          if (!bool) return console.log("登录失败");
+          this.$axios({
+            url: "/api/post/insert",
+            method: "POST",
+            data: {
+              username: this.loginform.username,
+              password: this.loginform.password,
+            },
+          }).then((res) => {
+            console.log(res.data.data);
+            if (res.data.data === 1) {
+              this.$router.push("login");
+            } else if (res.data.data === 0) {
+              // alert("用户名已存在");
+              $(".boolbox").fadeIn(1000);
+            }
+          });
         });
-      });
+      } else {
+        $(".boolbox1").fadeIn(1000);
+      }
     },
     isShowbtn() {
       $(".boolbox").fadeOut(1000);
+      $(".boolbox1").fadeOut(1000);
     },
+    textbtn() {},
   },
 };
 </script>
@@ -150,13 +161,6 @@ export default {
 .lock_input {
   margin-top: 10px;
 }
-.mobile_input {
-  margin-top: 8px;
-  width: 200px;
-}
-.iphone_btn {
-  width: 140px;
-}
 .login_btn {
   width: 340px;
   margin-top: 8px;
@@ -171,7 +175,8 @@ export default {
   margin-top: 20px;
   margin-right: 30px;
 }
-.boolbox {
+.boolbox,
+.boolbox1 {
   position: absolute;
   left: 50%;
   top: 50%;
