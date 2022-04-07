@@ -6,7 +6,7 @@ body,
 html,
 #app {
   height: 100%;
-  /* background-color: antiquewhite; */
+  background-color: #f6f6f6;
 }
 a {
   display: inline-block;

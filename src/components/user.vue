@@ -103,7 +103,7 @@ export default {
         this.$refs.login_table.validate((bool) => {
           if (!bool) return console.log("登录失败");
           this.$axios({
-            url: "/api/post/insert",
+            url: "/post/insert",
             method: "POST",
             data: {
               username: this.loginform.username,

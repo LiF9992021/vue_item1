@@ -86,14 +86,15 @@ export default {
         if (!bool) return console.log("登录失败");
 
         this.$axios({
-          url: "/api/post",
+          url: "/post",
           method: "POST",
           data: {
             username: this.loginform.username,
             password: this.loginform.password,
           },
         }).then((res) => {
-          // console.log(res.data);
+          console.log(res.data.token);
+          localStorage.setItem('token',res.data.token)
           this.list = res.data.data;
           // console.log(this.list);
           if (this.list.length === 0) {
